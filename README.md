@@ -1,5 +1,9 @@
 # Knaq IoT Alert Triage and Resolution System
 
+A production-grade, full-stack web application that ingests raw IoT device messages, validates and stores them, and gives building managers a complete workflow to acknowledge, assign, investigate, and resolve equipment alerts with a full audit trail.
+
+Built as a take-home engineering assessment. The system covers two critical gaps in a facility management platform: raw device data had no structured storage or query layer, and when alerts fired, there was no way for a team to triage or track them.
+
 ## Live Demo
 
 - Frontend: https://knaq-iot-triage-web.onrender.com
@@ -7,10 +11,6 @@
 - Backend docs: https://knaq-iot-triage-api.onrender.com/docs
 
 The live demo runs on Render using the same SQLite-backed startup flow as local development. Free Render services can spin down after inactivity, so the first request may take about a minute to wake up.
-
-A production-grade, full-stack web application that ingests raw IoT device messages, validates and stores them, and gives building managers a complete workflow to acknowledge, assign, investigate, and resolve equipment alerts with a full audit trail.
-
-Built as a take-home engineering assessment. The system covers two critical gaps in a facility management platform: raw device data had no structured storage or query layer, and when alerts fired, there was no way for a team to triage or track them.
 
 ---
 
