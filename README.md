@@ -502,8 +502,12 @@ Key architectural decisions are documented in detail in [SOLUTION.md](SOLUTION.m
 
 ---
 
-## Contact
+## About the Author
 
 **Project Built by**
+
 Raunak Choudhary
+
 Master's CS Graduate, Class of 2026 — New York University
+
+📧 raunakchoudhary17@gmail.com | rc5553@nyu.edu
