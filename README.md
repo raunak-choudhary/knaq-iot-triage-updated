@@ -504,4 +504,6 @@ Key architectural decisions are documented in detail in [SOLUTION.md](SOLUTION.m
 
 ## Contact
 
-Built by Raunak Choudhary.
+**Project Built by**
+Raunak Choudhary
+Master's CS Graduate, Class of 2026 — New York University
