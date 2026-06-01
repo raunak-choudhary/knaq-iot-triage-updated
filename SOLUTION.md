@@ -273,6 +273,12 @@ The evaluators stated that AI tool usage is expected and this disclosure is not 
 
 ## 16. Setup Verification
 
+Live deployment:
+
+- Frontend: https://knaq-iot-triage-web.onrender.com
+- Backend health: https://knaq-iot-triage-api.onrender.com/health
+- Backend docs: https://knaq-iot-triage-api.onrender.com/docs
+
 Verified on macOS (Apple Silicon, Python 3.12, Node 22).
 
 ```bash
@@ -295,6 +301,13 @@ npm install
 cp .env.example .env.local
 npm run dev
 # App: http://localhost:3000
+```
+
+Live verification:
+
+```bash
+curl https://knaq-iot-triage-api.onrender.com/health
+# App: https://knaq-iot-triage-web.onrender.com
 ```
 
 Default token: `token-alice-brookfield` (Brookfield Properties, Building Manager).
