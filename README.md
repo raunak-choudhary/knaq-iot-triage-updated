@@ -6,6 +6,8 @@
 - Backend health: https://knaq-iot-triage-api.onrender.com/health
 - Backend docs: https://knaq-iot-triage-api.onrender.com/docs
 
+The live demo runs on Render using the same SQLite-backed startup flow as local development. Free Render services can spin down after inactivity, so the first request may take about a minute to wake up.
+
 A production-grade, full-stack web application that ingests raw IoT device messages, validates and stores them, and gives building managers a complete workflow to acknowledge, assign, investigate, and resolve equipment alerts with a full audit trail.
 
 Built as a take-home engineering assessment. The system covers two critical gaps in a facility management platform: raw device data had no structured storage or query layer, and when alerts fired, there was no way for a team to triage or track them.
@@ -197,8 +199,8 @@ Before you start, make sure you have the following installed:
 ### Step 1 — Clone the Repository
 
 ```bash
-git clone https://github.com/raunak-choudhary/knaq-iot-triage.git
-cd knaq-iot-triage
+git clone https://github.com/raunak-choudhary/knaq-iot-triage-updated.git
+cd knaq-iot-triage-updated
 ```
 
 ### Step 2 — Backend Setup
@@ -212,7 +214,7 @@ cd api
 python3.12 -m venv .venv          # or python3.11 if 3.12 is not available
 source .venv/bin/activate
 pip install -r requirements.txt -r requirements-dev.txt
-cp .env.example .env
+cp .env.local.example .env
 ```
 
 **Windows (PowerShell):**
@@ -223,10 +225,10 @@ py -3.12 -m venv .venv            # or py -3.11
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt -r requirements-dev.txt
 pip install tzdata                 # required on Windows for IANA timezone support
-copy .env.example .env
+copy .env.local.example .env
 ```
 
-The `.env` file defaults work out of the box for local development. No changes are needed.
+The local `.env` file points CORS at the frontend dev server on port 3000. No changes are needed for local development.
 
 ### Step 3 — Frontend Setup
 
@@ -240,13 +242,13 @@ npm install
 **macOS and Linux:**
 
 ```bash
-cp .env.example .env.local
+cp .env.local.example .env.local
 ```
 
 **Windows:**
 
 ```powershell
-copy .env.example .env.local
+copy .env.local.example .env.local
 ```
 
 The default `.env.local` points the frontend at `http://localhost:8000` and authenticates as Alice Chen (Brookfield Properties). No changes are needed to get started.
@@ -285,7 +287,22 @@ npm run dev
 
 - **Web application:** http://localhost:3000
 
-The application auto-redirects to the Alert Queue. You should see Brookfield Properties alerts loaded immediately from the live API.
+The application auto-redirects to the Alert Queue. You should see Brookfield Properties alerts loaded immediately from your local API.
+
+---
+
+## Environment Files
+
+Deployment and local development use separate example files so URLs do not get mixed accidentally.
+
+| File | Use for | Key values |
+|---|---|---|
+| `api/.env.example` | Hosted backend | `CORS_ORIGINS=https://knaq-iot-triage-web.onrender.com` |
+| `api/.env.local.example` | Local backend | `CORS_ORIGINS=http://localhost:3000` |
+| `web/.env.example` | Hosted frontend | `NEXT_PUBLIC_API_URL=https://knaq-iot-triage-api.onrender.com` |
+| `web/.env.local.example` | Local frontend | `NEXT_PUBLIC_API_URL=http://localhost:8000` |
+
+The demo bearer tokens are seeded test data, not production secrets. Do not commit real `.env` or `.env.local` files.
 
 ---
 
@@ -361,6 +378,73 @@ npm test -- --watchAll=false
 ```
 
 Expected result: **103 tests pass** across component unit tests, Redux slice tests, utility function tests, and page-level integration tests using MSW.
+
+---
+
+## Render Deployment
+
+The live demo is deployed as two free Render Web Services from this repository. The backend uses SQLite and rebuilds its demo database from the bundled data on startup.
+
+### Backend Service
+
+Create a Render Web Service from the public repository URL:
+
+```text
+https://github.com/raunak-choudhary/knaq-iot-triage-updated
+```
+
+Use these settings:
+
+| Setting | Value |
+|---|---|
+| Name | `knaq-iot-triage-api` |
+| Runtime | `Python 3` |
+| Branch | `main` |
+| Build command | `pip install -r api/requirements.txt` |
+| Start command | `cd api && uvicorn app.main:app --host 0.0.0.0 --port $PORT` |
+| Instance type | Free |
+
+Environment variables:
+
+```text
+DATABASE_URL=sqlite:///./knaq.db
+CORS_ORIGINS=https://knaq-iot-triage-web.onrender.com
+LOG_LEVEL=INFO
+PYTHON_VERSION=3.12.9
+```
+
+If you use a different frontend host, replace `CORS_ORIGINS` with that URL. For private values in real projects, document placeholders such as `1234-xxxx-xxxx` instead of committing actual secrets.
+
+### Frontend Service
+
+Create a second Render Web Service from the same repository URL:
+
+| Setting | Value |
+|---|---|
+| Name | `knaq-iot-triage-web` |
+| Runtime | `Node` |
+| Branch | `main` |
+| Root directory | `web` |
+| Build command | `npm ci && npm run build` |
+| Start command | `npm start -- -p $PORT` |
+| Instance type | Free |
+
+Environment variables:
+
+```text
+NEXT_PUBLIC_API_URL=https://knaq-iot-triage-api.onrender.com
+NEXT_PUBLIC_AUTH_TOKEN=token-alice-brookfield
+NODE_VERSION=22.13.0
+```
+
+After deployment, verify:
+
+```bash
+curl https://knaq-iot-triage-api.onrender.com/health
+open https://knaq-iot-triage-web.onrender.com
+```
+
+For Vercel, deploy only the `web` directory and set the same `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_AUTH_TOKEN` values. The FastAPI backend still needs a separate host such as Render.
 
 ---
 

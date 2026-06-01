@@ -13,7 +13,7 @@ cd api
 python3.12 -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\Activate.ps1
 pip install -r requirements.txt -r requirements-dev.txt
-cp .env.example .env
+cp .env.local.example .env
 uvicorn app.main:app --port 8000
 ```
 
@@ -27,8 +27,35 @@ uvicorn app.main:app --port 8000
 | Variable | Default | Description |
 |---|---|---|
 | `DATABASE_URL` | `sqlite:///./knaq.db` | SQLAlchemy connection string. Change to a PostgreSQL DSN for production. |
-| `CORS_ORIGINS` | `http://localhost:3000` | Comma-separated list of allowed CORS origins. |
+| `CORS_ORIGINS` | `https://knaq-iot-triage-web.onrender.com` in `.env.example`, `http://localhost:3000` in `.env.local.example` | Comma-separated list of allowed CORS origins. |
 | `LOG_LEVEL` | `INFO` | Structlog log level. |
+
+Use `.env.example` for hosted Render deployment values and `.env.local.example` for local development.
+
+---
+
+## Live Deployment
+
+- Health: https://knaq-iot-triage-api.onrender.com/health
+- Swagger UI: https://knaq-iot-triage-api.onrender.com/docs
+
+Render settings used for the demo:
+
+| Setting | Value |
+|---|---|
+| Runtime | `Python 3` |
+| Build command | `pip install -r api/requirements.txt` |
+| Start command | `cd api && uvicorn app.main:app --host 0.0.0.0 --port $PORT` |
+| Instance type | Free |
+
+Required environment variables:
+
+```text
+DATABASE_URL=sqlite:///./knaq.db
+CORS_ORIGINS=https://knaq-iot-triage-web.onrender.com
+LOG_LEVEL=INFO
+PYTHON_VERSION=3.12.9
+```
 
 ---
 

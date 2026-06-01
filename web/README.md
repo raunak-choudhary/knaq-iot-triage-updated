@@ -11,7 +11,7 @@ For complete setup instructions, see the [root README](../README.md).
 ```bash
 cd web
 npm install
-cp .env.example .env.local
+cp .env.local.example .env.local
 npm run dev
 ```
 
@@ -23,10 +23,37 @@ Open http://localhost:3000. The backend must be running on port 8000 first.
 
 | Variable | Default | Description |
 |---|---|---|
-| `NEXT_PUBLIC_API_URL` | `http://localhost:8000` | Backend API base URL |
+| `NEXT_PUBLIC_API_URL` | `https://knaq-iot-triage-api.onrender.com` in `.env.example`, `http://localhost:8000` in `.env.local.example` | Backend API base URL |
 | `NEXT_PUBLIC_AUTH_TOKEN` | `token-alice-brookfield` | Bearer token for the active user session |
 
 To switch company perspective, change `NEXT_PUBLIC_AUTH_TOKEN` to any seeded token (see root README) and restart the dev server.
+
+Use `.env.example` for hosted deployment values and `.env.local.example` for local development.
+
+---
+
+## Live Deployment
+
+- Frontend: https://knaq-iot-triage-web.onrender.com
+- Backend API: https://knaq-iot-triage-api.onrender.com
+
+Render settings used for the demo:
+
+| Setting | Value |
+|---|---|
+| Runtime | `Node` |
+| Root directory | `web` |
+| Build command | `npm ci && npm run build` |
+| Start command | `npm start -- -p $PORT` |
+| Instance type | Free |
+
+Required environment variables:
+
+```text
+NEXT_PUBLIC_API_URL=https://knaq-iot-triage-api.onrender.com
+NEXT_PUBLIC_AUTH_TOKEN=token-alice-brookfield
+NODE_VERSION=22.13.0
+```
 
 ---
 

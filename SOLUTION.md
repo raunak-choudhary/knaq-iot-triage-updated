@@ -282,15 +282,15 @@ Live deployment:
 Verified on macOS (Apple Silicon, Python 3.12, Node 22).
 
 ```bash
-git clone https://github.com/raunak-choudhary/knaq-iot-triage.git
-cd knaq-iot-triage
+git clone https://github.com/raunak-choudhary/knaq-iot-triage-updated.git
+cd knaq-iot-triage-updated
 
 # Backend
 cd api
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt -r requirements-dev.txt
-cp .env.example .env
+cp .env.local.example .env
 uvicorn app.main:app --port 8000
 # Health: http://localhost:8000/health
 # API docs: http://localhost:8000/docs
@@ -298,7 +298,7 @@ uvicorn app.main:app --port 8000
 # Frontend (new terminal)
 cd web
 npm install
-cp .env.example .env.local
+cp .env.local.example .env.local
 npm run dev
 # App: http://localhost:3000
 ```
@@ -309,5 +309,10 @@ Live verification:
 curl https://knaq-iot-triage-api.onrender.com/health
 # App: https://knaq-iot-triage-web.onrender.com
 ```
+
+Environment examples:
+
+- `api/.env.example` and `web/.env.example` contain the live Render URLs used by the hosted demo.
+- `api/.env.local.example` and `web/.env.local.example` contain localhost values for local development.
 
 Default token: `token-alice-brookfield` (Brookfield Properties, Building Manager).
