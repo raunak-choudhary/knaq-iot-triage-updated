@@ -199,8 +199,8 @@ Before you start, make sure you have the following installed:
 ### Step 1 — Clone the Repository
 
 ```bash
-git clone https://github.com/raunak-choudhary/knaq-iot-triage-updated.git
-cd knaq-iot-triage-updated
+git clone https://github.com/raunak-choudhary/knaq-iot-triage.git
+cd knaq-iot-triage
 ```
 
 ### Step 2 — Backend Setup
@@ -390,7 +390,7 @@ The live demo is deployed as two free Render Web Services from this repository. 
 Create a Render Web Service from the public repository URL:
 
 ```text
-https://github.com/raunak-choudhary/knaq-iot-triage-updated
+https://github.com/raunak-choudhary/knaq-iot-triage
 ```
 
 Use these settings:

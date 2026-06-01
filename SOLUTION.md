@@ -282,8 +282,8 @@ Live deployment:
 Verified on macOS (Apple Silicon, Python 3.12, Node 22).
 
 ```bash
-git clone https://github.com/raunak-choudhary/knaq-iot-triage-updated.git
-cd knaq-iot-triage-updated
+git clone https://github.com/raunak-choudhary/knaq-iot-triage.git
+cd knaq-iot-triage
 
 # Backend
 cd api
