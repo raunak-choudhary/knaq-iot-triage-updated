@@ -4,6 +4,30 @@ A production-grade, full-stack web application that ingests raw IoT device messa
 
 Built as a take-home engineering assessment. The system covers two critical gaps in a facility management platform: raw device data had no structured storage or query layer, and when alerts fired, there was no way for a team to triage or track them.
 
+## Table of Contents
+
+- [Live Demo](#live-demo)
+- [The Problem This Solves](#the-problem-this-solves)
+- [System Architecture](#system-architecture)
+- [Key Features](#key-features)
+- [Tech Stack](#tech-stack)
+- [Repository Structure](#repository-structure)
+- [Prerequisites](#prerequisites)
+- [Installation and Setup](#installation-and-setup)
+- [Running the Application](#running-the-application)
+- [Environment Files](#environment-files)
+- [Seeded Users and Tokens](#seeded-users-and-tokens)
+- [API Endpoints](#api-endpoints)
+- [Running Tests](#running-tests)
+- [Render Deployment](#render-deployment)
+- [Docker Setup (Optional)](#docker-setup-optional)
+- [Keyboard Shortcuts](#keyboard-shortcuts)
+- [Design Decisions](#design-decisions)
+- [Assumptions](#assumptions)
+- [About the Author](#about-the-author)
+
+---
+
 ## Live Demo
 
 - Frontend: https://knaq-iot-triage-web.onrender.com
